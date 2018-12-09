@@ -35,6 +35,10 @@ namespace Hotel32.UI.ViewModel
             try
             {
                 var response = await _customerDataService.GetAllAsync();
+
+                if (response == null)
+                    return;
+
                 var test = JsonConvert.DeserializeObject<List<Customer>>(response);
 
                 foreach (var customer in test)

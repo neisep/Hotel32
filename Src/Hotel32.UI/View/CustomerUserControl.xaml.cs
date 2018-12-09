@@ -1,4 +1,5 @@
-﻿using Hotel32.UI.ViewModel;
+﻿using Hotel32.UI.DataService;
+using Hotel32.UI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,20 @@ namespace Hotel32.UI.View
         private void CustomerUserControl_Loaded(object sender, RoutedEventArgs e)
         {
             _viewModel.LoadAsync();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new Window
+            {
+                MinHeight = 400,
+                MaxHeight = 400,
+                MinWidth = 400,
+                MaxWidth = 800,
+                Title = "Test",
+                Content = new CustomerEditUserControl(new ViewModel.CustomerViewModel(new CustomerDataService())),
+            };
+            window.ShowDialog();
         }
     }
 }

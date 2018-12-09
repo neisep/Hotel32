@@ -34,7 +34,7 @@ namespace Hotel32.UI
                 MinHeight = 400,
                 MaxHeight = 400,
                 MinWidth = 400,
-                MaxWidth = 400,
+                MaxWidth = 800,
                 Title = "Test",
                 Content = new CustomerUserControl(new ViewModel.CustomerViewModel(new CustomerDataService())),
             };
