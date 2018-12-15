@@ -6,8 +6,13 @@
         xmlns:local="clr-namespace:Hotel32.UI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="Customers" Content="Customers" HorizontalAlignment="Left" Margin="20,111,0,0" VerticalAlignment="Top" Width="106" Click="Customers_Click"/>
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="10*" />
+        </Grid.RowDefinitions>
+
+        <Button x:Name="Customers" Content="Customers" HorizontalAlignment="Left" VerticalAlignment="Top" Width="106" Click="Customers_Click"/>
 
     </Grid>
 </Window>

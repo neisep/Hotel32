@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Hotel32.UI.Managers.Interfaces;
+using Hotel32.UI.View.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,12 +20,20 @@ namespace Hotel32.UI.View
     /// <summary>
     /// Interaction logic for CustomerEditUserControl.xaml
     /// </summary>
-    public partial class CustomerEditUserControl : UserControl
+    public partial class CustomerEditUserControl : UserControl, ICustomerEditUserControl
     {
-        public CustomerEditUserControl(ViewModel.CustomerViewModel customerViewModel)
+        private IGridManager _gridManager;
+
+        public CustomerEditUserControl(ViewModel.CustomerViewModel customerViewModel, IGridManager gridManager)
         {
             InitializeComponent();
             //customerViewModel
+            _gridManager = gridManager;
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            _gridManager.ClearMainGridFromUserControls();
         }
     }
 }

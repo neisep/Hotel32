@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Hotel32.UI.ViewModel.Interfaces;
 
 namespace Hotel32.UI.ViewModel
 {
-    public class CustomerViewModel : ViewModelBase
+    public class CustomerViewModel : ViewModelBase, ICustomerViewModel
     {
         private ICustomerDataService _customerDataService;
         private Customer _selectedCustomer;
