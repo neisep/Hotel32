@@ -54,26 +54,12 @@ namespace Hotel32.UI
 
         private void Customers_Click(object sender, RoutedEventArgs e)
         {
-            //var window = new Window { Content = _container.Resolve<CustomerUserControl>()};
-            //window.ShowDialog();
-
             var manager = _container.Resolve<GridManager>();
 
             var userControl = _container.Resolve<CustomerUserControl>();
             userControl.SetValue(Grid.RowProperty, 1);
 
             manager.AddUserControl(userControl);
-
-            //Window window = new Window
-            //{
-            //    MinHeight = 400,
-            //    MaxHeight = 400,
-            //    MinWidth = 400,
-            //    MaxWidth = 800,
-            //    Title = "Test",
-            //    Content = new CustomerUserControl(new ViewModel.CustomerViewModel(new CustomerDataService())),
-            //};
-            //window.ShowDialog();
         }
     }
 }

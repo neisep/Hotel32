@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hotel32.UI.DataService
 {
-    public class RestClient
+    public class RestClient : IDisposable
     {
         //We want to reause this since we might use this ALOT, and reinstancate would just make big mess.
         private static HttpClient _httpClient = new HttpClient(new HttpClientHandler { Proxy = null, UseProxy = false });
@@ -35,7 +35,6 @@ namespace Hotel32.UI.DataService
         public void Dispose()
         {
             _httpClient.Dispose();
-            this.Dispose();
         }
     }
 }
