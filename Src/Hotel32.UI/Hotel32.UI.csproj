@@ -83,6 +83,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataService\ApiException.cs" />
     <Compile Include="DataService\RestClient.cs" />
     <Compile Include="Managers\GridManager.cs" />
     <Compile Include="Managers\Interfaces\IGridManager.cs" />

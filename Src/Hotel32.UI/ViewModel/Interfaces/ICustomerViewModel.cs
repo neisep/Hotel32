@@ -10,5 +10,6 @@ namespace Hotel32.UI.ViewModel.Interfaces
         Customer SelectedCustomer { get; set; }
 
         Task LoadAsync();
+        Task SaveAsync(Customer customer);
     }
 }

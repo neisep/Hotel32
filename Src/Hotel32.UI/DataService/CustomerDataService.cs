@@ -9,12 +9,18 @@ namespace Hotel32.UI.DataService
 {
     public class CustomerDataService : ICustomerDataService
     {
-        public async Task<string> GetAllAsync()
+        public async Task<List<Customer>> GetAllAsync()
         {
-            using (var client = new RestClient())
-            {
-                return await client.HttpGetAsync("http://localhost:51229/api/guest/");
-            }
+            var client = new RestClient();
+
+            return await client.HttpGetAsync<Customer>("http://localhost:51229/api/guest/");
+        }
+
+        public async Task<string> PostCustomerAsync(Customer customer)
+        {
+            var client = new RestClient();
+
+            return await client.HttpPostAsync("http://localhost:51229/api/guest/", customer);
         }
     }
 }

@@ -31,18 +31,21 @@ namespace Hotel32.UI.ViewModel
             _customerDataService = customerDataService;
         }
 
+        public async Task SaveAsync(Customer customer)
+        {
+            await _customerDataService.PostCustomerAsync(customer);
+        }
+
         public async Task LoadAsync()
         {
             try
             {
                 var response = await _customerDataService.GetAllAsync();
 
-                if (response == null)
+                if (response == null || response.Count == 0)
                     return;
 
-                var test = JsonConvert.DeserializeObject<List<Customer>>(response);
-
-                foreach (var customer in test)
+                foreach (var customer in response)
                 {
                     Customers.Add(customer);
                 }

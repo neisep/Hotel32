@@ -6,6 +6,7 @@ namespace Hotel32.UI.DataService
 {
     public interface ICustomerDataService
     {
-        Task<string> GetAllAsync();
+        Task<List<Customer>> GetAllAsync();
+        Task<string> PostCustomerAsync(Customer customer);
     }
 }

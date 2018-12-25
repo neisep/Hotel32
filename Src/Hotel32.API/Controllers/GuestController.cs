@@ -55,7 +55,7 @@ namespace HotelAPI
         [HttpPost]
         public void Post([FromBody]string value)
         {
-
+            //TODO Add data to database here!
         }
 
         // DELETE api/<controller>/5
