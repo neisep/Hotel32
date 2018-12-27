@@ -5,12 +5,16 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Hotel32.UI.ViewModel.Interfaces;
+using System;
+using System.Net.Http;
+using Hotel32.UI.Managers.Interfaces;
 
 namespace Hotel32.UI.ViewModel
 {
     public class CustomerViewModel : ViewModelBase, ICustomerViewModel
     {
         private ICustomerDataService _customerDataService;
+        private IGridManager _gridManager;
         private Customer _selectedCustomer;
 
         public ObservableCollection<Customer> Customers { get; set; }
@@ -25,15 +29,29 @@ namespace Hotel32.UI.ViewModel
             }
         }
 
-        public CustomerViewModel(ICustomerDataService customerDataService)
+        public CustomerViewModel(ICustomerDataService customerDataService, IGridManager gridManager)
         {
             Customers = new ObservableCollection<Customer>();
             _customerDataService = customerDataService;
+            _gridManager = gridManager;
         }
 
         public async Task SaveAsync(Customer customer)
         {
-            await _customerDataService.PostCustomerAsync(customer);
+            try
+            {
+                await _customerDataService.PostCustomerAsync(customer);
+            }
+            catch (HttpRequestException ex)
+            {
+                if (ex.InnerException != null)
+                    _gridManager.AddStatusMessage(ex.InnerException.Message);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         public async Task LoadAsync()
@@ -50,7 +68,7 @@ namespace Hotel32.UI.ViewModel
                     Customers.Add(customer);
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
 
                 throw;

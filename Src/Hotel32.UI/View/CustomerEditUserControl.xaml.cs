@@ -32,12 +32,7 @@ namespace Hotel32.UI.View
         {
             try
             {
-                var model = new Domain.Models.Customer
-                {
-                    Id = Guid.NewGuid(),
-                    FirstName = FirstName.Text,
-                    LastName = LastName.Text
-                };
+                Domain.Models.Customer model = NewMethod();
                 _customerViewModel.SaveAsync(model);
             }
             catch (Exception ex)
@@ -45,6 +40,16 @@ namespace Hotel32.UI.View
 
                 throw;
             }
+        }
+
+        private Domain.Models.Customer NewMethod()
+        {
+            return new Domain.Models.Customer
+            {
+                Id = Guid.NewGuid(),
+                FirstName = FirstName.Text,
+                LastName = LastName.Text
+            };
         }
     }
 }

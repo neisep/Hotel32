@@ -24,66 +24,51 @@ namespace Hotel32.UI.DataService
         //TODO Need too add somekind of Model of the information we trying to reach here!
         public async Task<List<T>> HttpGetAsync<T>(string url)
         {
-            try
+            //UserAgent is probobly not needed.
+            _httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+            using (var request = new HttpRequestMessage(HttpMethod.Get, url))
+            using (var response = await _httpClient.SendAsync(request)) //TODO ADD CANCELATION!
             {
-                //UserAgent is probobly not needed.
-                _httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
-                using (var request = new HttpRequestMessage(HttpMethod.Get, url))
-                using (var response = await _httpClient.SendAsync(request)) //TODO ADD CANCELATION!
+                var stream = await response.Content.ReadAsStreamAsync();
+
+                if (!response.IsSuccessStatusCode)
                 {
-                    var stream = await response.Content.ReadAsStreamAsync();
-
-                    if (!response.IsSuccessStatusCode)
+                    var content = await StreamToStringAsync(stream);
+                    throw new ApiException
                     {
-                        var content = await StreamToStringAsync(stream);
-                        throw new ApiException
-                        {
-                            StatusCode = (int)response.StatusCode,
-                            Content = content,
-                        };
-                    }
-
-                    return DeserializeJsonFromStream<List<T>>(stream);
+                        StatusCode = (int)response.StatusCode,
+                        Content = content,
+                    };
                 }
-            }
-            catch (Exception ex)
-            {
-                //TODO ADD SOME EXCEPTION HERE MAYBE!
+
+                return DeserializeJsonFromStream<List<T>>(stream);
             }
             return null;
         }
 
         public async Task<string> HttpPostAsync<T>(string url, T content)
         {
-            try
-            {
-                if (content == null)
-                    return null;
+            if (content == null)
+                return null;
 
-                using (var request = new HttpRequestMessage(HttpMethod.Post, url))
+            using (var request = new HttpRequestMessage(HttpMethod.Post, url))
+            {
+                request.Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
+                using (var response = await _httpClient.SendAsync(request)) //TODO ADD CANCELATION!
                 {
-                    request.Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
-                    using (var response = await _httpClient.SendAsync(request)) //TODO ADD CANCELATION!
+                    var responseString = await response.Content.ReadAsStringAsync();
+
+                    if (!response.IsSuccessStatusCode)
                     {
-                        var responseString = await response.Content.ReadAsStringAsync();
-
-                        if (!response.IsSuccessStatusCode)
+                        throw new ApiException
                         {
-                            throw new ApiException
-                            {
-                                StatusCode = (int)response.StatusCode,
-                                Content = responseString,
-                            };
-                        }
-
-                        return responseString;
+                            StatusCode = (int)response.StatusCode,
+                            Content = responseString,
+                        };
                     }
-                }
-            }
-            catch (Exception ex)
-            {
 
-                throw;
+                    return responseString;
+                }
             }
         }
         

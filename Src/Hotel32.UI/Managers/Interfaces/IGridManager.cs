@@ -4,5 +4,6 @@
     {
         void AddUserControl<T>(T userControl);
         void ClearMainGridFromUserControls();
+        void AddStatusMessage(string value);
     }
 }

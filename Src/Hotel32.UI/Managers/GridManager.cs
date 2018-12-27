@@ -59,5 +59,14 @@ namespace Hotel32.UI.Managers
                 }
             }
         }
+
+        //TODO Change this make use of enums of Warning, Danger etc maybe we should have a userConrol for it
+        public void AddStatusMessage(string value)
+        {
+            TextBlock text = new TextBlock();
+            text.SetValue(Grid.RowProperty, 1);
+            text.Text = value;
+            _mainGrid.Children.Add(text);
+        }
     }
 }

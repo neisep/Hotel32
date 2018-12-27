@@ -36,6 +36,7 @@ namespace Hotel32.UI
             Start_DependencyInjection();
         }
 
+        //Instantiate Dependency Injection.
         private void Start_DependencyInjection()
         {
             _container = new UnityContainer();
@@ -57,7 +58,7 @@ namespace Hotel32.UI
             var manager = _container.Resolve<GridManager>();
 
             var userControl = _container.Resolve<CustomerUserControl>();
-            userControl.SetValue(Grid.RowProperty, 1);
+            userControl.SetValue(Grid.RowProperty, 2);
 
             manager.AddUserControl(userControl);
         }

@@ -32,7 +32,7 @@ namespace Hotel32.UI.View
         private void AddCustomer_Click(object sender, RoutedEventArgs e)
         {
             var userControl = _container.Resolve<CustomerEditUserControl>();
-            userControl.SetValue(Grid.RowProperty, 1);
+            userControl.SetValue(Grid.RowProperty, 2);
 
             _gridManager.AddUserControl(userControl);
         }
