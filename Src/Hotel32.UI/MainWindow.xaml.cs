@@ -33,11 +33,11 @@ namespace Hotel32.UI
         {
             InitializeComponent();
 
-            Start_DependencyInjection();
+            InitializeDependencyInjection();
         }
 
         //Instantiate Dependency Injection.
-        private void Start_DependencyInjection()
+        private void InitializeDependencyInjection()
         {
             _container = new UnityContainer();
             _container.RegisterInstance(MainGrid);

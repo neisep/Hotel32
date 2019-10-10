@@ -13,14 +13,14 @@ namespace Hotel32.UI.DataService
         {
             var client = new RestClient();
 
-            return await client.HttpGetAsync<Customer>("http://localhost:51229/api/guest/");
+            return await client.HttpGetAsync<Customer>("http://localhost:5000/api/guest/");
         }
 
         public async Task<string> PostCustomerAsync(Customer customer)
         {
             var client = new RestClient();
 
-            return await client.HttpPostAsync("http://localhost:51229/api/guest/", customer);
+            return await client.HttpPostAsync("http://localhost:5000/api/guest/", customer);
         }
     }
 }
